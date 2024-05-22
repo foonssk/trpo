@@ -54,3 +54,25 @@ void insertionSort(int data[], int len)
 		data[i+1] = key;
  	}
 }
+
+void merge(int merged[], int lenD, int L[], int lenL, int R[], int lenR)
+{
+	а
+ 	int i = 0;
+ 	int j = 0;
+ 	while(i<lenL||j<lenR)
+	{
+ 		if (i<lenL & j<lenR)
+		{
+ 			if(L[i]<=R[j])
+			{
+ 				merged[i+j] = L[i];
+ 				i++;
+ 			}
+			else
+			{
+ 				merged[i+j] = R[j];
+ 				j++;
+ 			}
+ 		}	
+	}
