@@ -1,6 +1,7 @@
 #include <iostream>
 #include <ctime>
 #include <random>
+#include "sorts.h"
 
 using namespace std;
 // Функция для замера времени сортировки
