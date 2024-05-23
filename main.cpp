@@ -6,7 +6,28 @@ using namespace std;
 // Функция для замера времени сортировки
 double timer(int tip_sort, int a[], long long n)
 {
-
+    unsigned int start = clock(); //выбор сортировки 
+	if (tip_sort == 1)
+	{
+	selectionSort(a, n);
+	}
+	else if (tip_sort == 2)
+	{
+	bubbleSort(a, n);
+	}
+	else if (tip_sort == 3)
+	{
+	insertionSort(a, n);
+	}
+	else if (tip_sort == 4)
+	{
+	mergeSort(a, n);
+	}
+	else
+	{
+	quickSort(a, n);
+	}
+	return (clock() - start) / 1000.0; //время в сек
     }
 
 int main()
