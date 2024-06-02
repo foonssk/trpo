@@ -2,7 +2,6 @@
 #include <ctime>
 #include <random>
 #include "sorts.h"
-
 using namespace std;
 // Функция для замера времени сортировки
 double timer(int tip_sort, int a[], long long n)
