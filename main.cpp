@@ -1,13 +1,13 @@
 #include <iostream>
-#include <ctime>
 #include <random>
+#include <chrono>
 #include "sorts.h"
 
 using namespace std;
 
 // Функция для замера времени сортировки
 double timer(int tip_sort, int a[], long long n) {
-    unsigned int start = clock(); // выбор сортировки 
+    auto start = chrono::high_resolution_clock::now(); // Запуск таймера
     if (tip_sort == 1) {
         selectionSort(a, n);
     } else if (tip_sort == 2) {
@@ -19,7 +19,8 @@ double timer(int tip_sort, int a[], long long n) {
     } else {
         quickSort(a, n);
     }
-    return (clock() - start) / 1000.0; // время в сек
+    auto end = chrono::high_resolution_clock::now(); // Окончание таймера
+    return chrono::duration_cast<chrono::microseconds>(end - start).count() / 1e6; // Время в секундах
 }
 
 int main() {
@@ -27,6 +28,10 @@ int main() {
     int m[100000]; // Объявляем массив для тестирования
     long long choice, len; // Переменные для выбора типа сортировки и длины массива
     double time; // Переменная для хранения времени выполнения сортировки
+
+    random_device rd; // Инициализация генератора случайных чисел
+    mt19937 gen(rd()); // Создание генератора случайных чисел
+    uniform_int_distribution<> dis(0, 100000); // Установка диапазона случайных чисел
 
     while (true) { // Бесконечный цикл для повторения тестирования
         // Меню для выбора типа сортировки
@@ -46,9 +51,14 @@ int main() {
         cout << "Введите длину тестируемого массива: ";
         cin >> len;
 
+        if (len > 100000) {
+            cout << "Длина массива не должна превышать 100000.\n";
+            continue;
+        }
+
         // Заполняем массив случайными числами
         for (long long i = 0; i < len; i++)
-            m[i] = rand();
+            m[i] = dis(gen);
 
         // Замеряем время выполнения сортировки и выводим результат
         time = timer(choice, m, len);
