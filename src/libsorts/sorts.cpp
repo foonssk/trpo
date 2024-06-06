@@ -67,7 +67,7 @@ merge (int merged[], int lenD, int L[], int lenL, int R[], int lenR)
   int j = 0;
   while (i < lenL || j < lenR)
     {
-      if (i < lenL & j < lenR)
+      if (i < lenL && j < lenR)
         {
           if (L[i] <= R[j])
             {

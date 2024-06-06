@@ -3,9 +3,9 @@ CFLAGS = -Wall -Werror
 CPPFLAGS = -I src -MP -MMD -I thirdparty
 LDFLAGS = -lm
 
-APP_NAME = password
-LIB_NAME = sorts
-TEST_NAME = main_test
+APP_NAME = sorts
+LIB_NAME = libsorts
+TEST_NAME = test
 
 BIN_DIR = bin
 OBJ_DIR = obj
@@ -64,5 +64,14 @@ clean:
 	$(RM) $(OBJ_DIR)/$(TEST_DIR)/*.d
 
 .PHONY: test
-test: $(TEST_APP)
-	./$(TEST_APP)
+test: $(TEST_PATH)
+        $(TEST_PATH)
+
+	$(TEST_PATH): $(TEST_OBJECTS) $(LIB_PATH) $(CTEST_PATH)
+		$(CC) $(CFLAGS) $(CPPFLAGS) $(TEST_OBJECTS) $(LIB_PATH) -o $@ $(LDFLAGS) $(LDLIBS)
+
+	$(LIB_PATH): $(LIB_OBJECTS)
+		ar rcs $@ $^
+
+	$(OBJ_DIR)/%.o: %.c
+		$(CC) -c $(CFLAGS) $(CPPFLAGS) $< -o $@
