@@ -1,0 +1,44 @@
+name: Build
+
+on: 
+  push:
+
+jobs:
+  check-codestyle:
+    runs-on: ubuntu-latest
+    container:
+      image: registry.csc.sibsutis.ru/trpo/ci
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Check codestyle
+        run: |
+          echo "Check codestyle..."
+          git ls-files *.cpp *.h | xargs clang-format -i --verbose && git diff --exit-code
+          echo "Codestyle is fine."
+
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: registry.csc.sibsutis.ru/trpo/ci
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Compile the code
+        run: |
+          echo "Compiling the code..."
+          make
+          echo "Compile complete."
+
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: registry.csc.sibsutis.ru/trpo/ci
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Run tests
+        run: |
+          echo "Running tests..."
+          make test
+          echo "Tests complete."
