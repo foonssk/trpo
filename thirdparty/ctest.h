@@ -55,7 +55,7 @@ extern "C"
 #else
 /* the push/pop functionality wasn't in gcc until 4.6, fallback to "ignored" */
 #define CTEST_IMPL_DIAG_PUSH_IGNORED(w)                                       \
-  _Pragma("GCC diagnostic ignored \"-W" #w "\"")
+  _Pragma ("GCC diagnostic ignored \"-W" #w "\"")
 #define CTEST_IMPL_DIAG_POP()
 #endif
 #else
