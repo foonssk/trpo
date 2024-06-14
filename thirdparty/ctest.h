@@ -1,4 +1,4 @@
-/* Copyright 2011-2023 Bas van den Berg
+/* Copyright 2011-2024 Bas van den Berg
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -262,6 +262,11 @@ extern "C"
   assert_compare_u ("==", exp, real, __FILE__, __LINE__)
 #define ASSERT_NOT_EQUAL_U(exp, real)                                         \
   assert_compare_u ("!=", exp, real, __FILE__, __LINE__)
+
+#define ASSERT_LT_U(v1, v2) assert_compare_u ("<", v1, v2, __FILE__, __LINE__)
+#define ASSERT_LE_U(v1, v2) assert_compare_u ("<=", v1, v2, __FILE__, __LINE__)
+#define ASSERT_GT_U(v1, v2) assert_compare_u (">", v1, v2, __FILE__, __LINE__)
+#define ASSERT_GE_U(v1, v2) assert_compare_u (">=", v1, v2, __FILE__, __LINE__)
 
   void assert_interval (intmax_t exp1, intmax_t exp2, intmax_t real,
                         const char *caller, int line);
@@ -766,11 +771,11 @@ extern "C"
 
     const char *color = (num_fail) ? ANSI_BRED : ANSI_GREEN;
     char results[80];
-    snprintf (results, sizeof (results),
-              "RESULTS: %d tests (%d completed, %d failed, %d skipped) ran in "
-              "%.1f sec",
-              total, num_ok, num_fail, num_skip,
-              (double)(t2 - t1) * 1000.0 / CLOCKS_PER_SEC);
+    snprintf (
+        results, sizeof (results),
+        "RESULTS: %d tests (%d ok, %d failed, %d skipped) ran in %.1f ms",
+        total, num_ok, num_fail, num_skip,
+        (double)(t2 - t1) * 1000.0 / CLOCKS_PER_SEC);
     color_print (color, results);
     return num_fail;
   }
