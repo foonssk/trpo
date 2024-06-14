@@ -48,9 +48,8 @@ $(TEST_APP): $(TEST_OBJECTS) $(LIB_PATH)
 $(OBJ_DIR)/%.o: %.$(SRC_EXT)
 	$(CC) -c $(CFLAGS) $(CPPFLAGS) $< -o $@
 
-
 .PHONY: run
-all:
+run:
 	./$(APP_PATH)
 
 .PHONY: clean
@@ -64,14 +63,5 @@ clean:
 	$(RM) $(OBJ_DIR)/$(TEST_DIR)/*.d
 
 .PHONY: test
-test: $(TEST_PATH)
-        $(TEST_PATH)
-
-	$(TEST_PATH): $(TEST_OBJECTS) $(LIB_PATH) $(CTEST_PATH)
-		$(CC) $(CFLAGS) $(CPPFLAGS) $(TEST_OBJECTS) $(LIB_PATH) -o $@ $(LDFLAGS) $(LDLIBS)
-
-	$(LIB_PATH): $(LIB_OBJECTS)
-		ar rcs $@ $^
-
-	$(OBJ_DIR)/%.o: %.c
-		$(CC) -c $(CFLAGS) $(CPPFLAGS) $< -o $@
+test: $(TEST_APP)
+	$(TEST_APP)
